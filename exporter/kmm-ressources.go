@@ -10,14 +10,12 @@ import (
 
 const kotlinTemplate = `package {{ package_name }}
 
-sealed class Localization(val scope: String) {
+sealed class Strings(val scope: String) {
 	val defaultLanguage = "{{ default_language }}"
 	{% for name, keys in scopes %}
-	data object {{ name | capfirst }}: Localization(scope = "{{ name }}") {
+	data object {{ name | capfirst }}: Strings(scope = "{{ name }}") {
 		{% for key in keys %}
-		val {{ key }}: String
-			get() = this("{{ key }}")
-		{% endfor %}
+		val {{ key }} by I18n(){% endfor %}
 	}{% endfor %}
 }
 `
@@ -59,5 +57,5 @@ func ExportAsKotlinObjects(filesPath *string, package_name string, localization 
 	}
 	res, error := template.Execute(pongo2.Context{"package_name": package_name, "default_language": default_language, "scopes": scopes})
 	core.Check(error)
-	core.Check(os.WriteFile(*filesPath+"/Localization.kt", []byte(res), 0777))
+	core.Check(os.WriteFile(*filesPath+"/Strings.kt", []byte(res), 0777))
 }

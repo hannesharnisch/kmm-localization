@@ -9,8 +9,8 @@ import (
 
 func main() {
 	excelgen := flag.Bool("excelgen", false, "tells the script to generate from excel")
-	ressourcePath := flag.String("ressource", "./ressources/i18n", "Set the ressource folder path")
-	kotlinLocalizationPath := flag.String("kotlin", "./src/commonMain/kotlin/i18n", "Set the kotlin localization folder path")
+	ressourcePath := flag.String("resource", "../../resources/i18n", "Set the ressource folder path")
+	kotlinLocalizationPath := flag.String("kotlin", ".", "Set the kotlin localization folder path")
 	kotlinPackageName := flag.String("kotlin-package", "i18n", "Set the kotlin localization package name")
 	defaultLang := flag.String("base-lang", "en", "Sets the default language that is used")
 	genFromJson := flag.Bool("rev", false, "Reverses the generation process and generates an excel file from intermediate representation")
